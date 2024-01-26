@@ -1,4 +1,5 @@
 import { Schema, model } from "mongoose";
+import { Comment } from "./comment.js";
 
 const postSchema = new Schema({
     title: {
@@ -17,5 +18,10 @@ const postSchema = new Schema({
 }, {
     timestamps: true
 });
+
+postSchema.pre('deleteOne', { document: true, query: true }, async function(next) {
+    await Comment.deleteMany({ post: this._id });
+    next();
+})
 
 export const Post = model('Post', postSchema);

@@ -4,7 +4,6 @@ export const typeDefs = `#graphql
         id: ID!
         name: String!
         email: String!
-        password: String!
     }
 
     type Post {
@@ -27,5 +26,21 @@ export const typeDefs = `#graphql
         posts: [Post]
         post(id: ID!): Post
         comments(postId: ID!): [Comment]
+    }
+
+    type Mutation {
+        deletePost(id: ID!) : DeletedPostResponse
+        addUser(user: AddUserInput!) : User
+    }
+
+    type DeletedPostResponse {
+        acknowledged: Boolean, 
+        deletedCount: Int
+    }
+
+    input AddUserInput {
+        name: String!
+        email: String!
+        password: String!
     }
 `

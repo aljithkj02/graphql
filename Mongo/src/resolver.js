@@ -32,5 +32,16 @@ export const resolvers = {
         async post(parent) {
             return await Post.findOne({ _id: parent.post });
         }
+    },
+
+    Mutation: {
+        async deletePost(_, { id }) {
+            await Comment.deleteMany({ post: id });
+            const deletedPost = await Post.deleteOne({ _id: id });
+            return deletedPost;
+        },
+        async addUser(_, { user }) {
+            return await User.create({ ...user });
+        }
     }
 }
