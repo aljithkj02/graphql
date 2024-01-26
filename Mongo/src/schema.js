@@ -11,14 +11,14 @@ export const typeDefs = `#graphql
         id: ID!
         title: String!
         content: String!
-        author: ID!
+        author: User!
     }
 
     type Comment {
         id: ID!
         content: String!
-        author: ID!
-        post: ID!
+        commentedBy: User!
+        post: Post!
     }
 
     type Query {

@@ -19,5 +19,18 @@ export const resolvers = {
         async comments(_, { postId }) {
             return await Comment.find({ post: postId });
         }
+    },
+    Post: {
+        async author(parent) {
+            return User.findOne({ _id: parent.author });
+        }
+    },
+    Comment: {
+        async commentedBy(parent) {
+            return User.findOne({ _id: parent.author })
+        },
+        async post(parent) {
+            return await Post.findOne({ _id: parent.post });
+        }
     }
 }
