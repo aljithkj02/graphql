@@ -13,6 +13,9 @@ const resolvers = {
         },
         authors() {
             return authors;
+        },
+        review(_: any, args: any) {
+            return reviews.find((item) => item.id === args.id);
         }
     }
 };
