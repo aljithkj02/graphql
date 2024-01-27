@@ -3,7 +3,7 @@ export const typeDefs = `#graphql
     scalar Date
 
     type User {
-        id: Int!
+        id: ID!
         name: String!
         email: String!
         role: String!
@@ -11,13 +11,24 @@ export const typeDefs = `#graphql
         updatedAt: Date!
     }
 
+    type Todo {
+        id: ID!
+        task: String!
+        status: String!
+        createdAt: Date!
+        updatedAt: Date!
+        userId: ID!
+    }
+
     type Query {
         users: [User]
+        todos(id: ID): [Todo]
     }
 
     type Mutation {
         registerUser(Input: registerUserInput!): User
         loginUser(Input: loginUserInput!): User
+        addTodo(Input: addTodoInput!): Todo
     }
 
     input registerUserInput {
@@ -29,5 +40,10 @@ export const typeDefs = `#graphql
     input loginUserInput {
         email: String!
         password: String!
+    }
+
+    input addTodoInput {
+        task: String!
+        userId: ID!
     }
 `

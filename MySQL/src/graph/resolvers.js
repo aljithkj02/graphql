@@ -6,6 +6,13 @@ export const resolvers = {
     Query: {
         async users() {
             return await Prisma.user.findMany();
+        },
+        async todos(_, { id }) {
+            return await Prisma.todo.findMany({
+                where: {
+                    ...(id && { userId: Number(id)  }),
+                }
+            })
         }
     },
     Mutation: {
@@ -32,11 +39,17 @@ export const resolvers = {
             if(!user) {
                 throw new Error('User doesn\'t exist!');
             }
-            
+
             if(user.password !== password) {
                 throw new Error('Incorrect password!');
             }
             return user;
+        },
+        async addTodo(_, { Input }) {
+            const { task, userId } = Input;
+            return await Prisma.todo.create({
+                data: { task, userId: Number(userId) }
+            })
         }
     },
 }
