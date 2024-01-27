@@ -31,6 +31,13 @@ const startExpressServer = async () => {
     await server.start();
 
     server.applyMiddleware({ app });
+
+    app.get('/', (req, res) => {
+        res.json({
+            status: true,
+            message: "Welcome to my Todo Application"
+        })
+    })
     
     app.listen(4000, () => {
         console.log("Server started on: localhost:4000");
