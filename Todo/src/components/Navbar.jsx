@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material"
+import { Box, Button, Typography } from "@mui/material"
 import { NavLink } from "react-router-dom"
 
 export const Navbar = () => {
@@ -9,8 +9,11 @@ export const Navbar = () => {
           <Box>
             <Typography color="#FFF" fontSize="20px" fontWeight={600}>Todo</Typography>
           </Box>
-          <Box>
+          <Box display="flex" gap={4} alignItems="center">
             <NavLink to='/'>Home</NavLink>
+            <NavLink to='/todos'>Todos</NavLink>
+
+            <Button variant="contained" color="error">Logout</Button>
           </Box>
         </Box>
       </Box>
