@@ -1,6 +1,12 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client'
 import { Home, Login, Register, Todos } from './pages'
 import { Layout } from './components'
+
+const client = new ApolloClient({
+  uri: 'http://localhost:4000/graphql',
+  cache: new InMemoryCache()
+})
 
 const router = createBrowserRouter([
   {
@@ -30,7 +36,9 @@ const router = createBrowserRouter([
 function App() {
 
   return (
-    <RouterProvider router={router} />
+    <ApolloProvider client={client}>
+      <RouterProvider router={router} />
+    </ApolloProvider>
   )
 }
 
