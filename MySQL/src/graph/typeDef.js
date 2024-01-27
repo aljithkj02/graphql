@@ -17,10 +17,16 @@ export const typeDefs = `#graphql
 
     type Mutation {
         registerUser(Input: registerUserInput!): User
+        loginUser(Input: loginUserInput!): User
     }
 
     input registerUserInput {
         name: String!
+        email: String!
+        password: String!
+    }
+
+    input loginUserInput {
         email: String!
         password: String!
     }
