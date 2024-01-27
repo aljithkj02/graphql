@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material'
-import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client'
-import { useEffect } from 'react'
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
+import { Locations } from './components/Locations'
 
 const client = new ApolloClient({
   uri: 'https://flyby-router-demo.herokuapp.com/',
@@ -9,30 +9,13 @@ const client = new ApolloClient({
 
 function App() {
 
-  useEffect(() => {
-    setup();
-  }, [])
-
-  const setup = async () => {
-    const res = await client.query({
-      query: gql`
-        query GetLocations {
-          locations {
-            id
-            name
-            description
-            photo
-          }
-        }
-      `
-    })
-    console.log(res);
-  }
-
   return (
-    <Box>
-      <Typography>Welcome to GraphQL</Typography>
-    </Box>
+    <ApolloProvider client={client}>
+      <Box>
+        <Typography textAlign="center" variant='h3'>Welcome to GraphQL</Typography>
+      </Box>
+      <Locations />
+    </ApolloProvider>
   )
 }
 
