@@ -1,7 +1,14 @@
 import { Box, Button, Typography } from "@mui/material"
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
+import { clearToken } from '../utils/localStorage.js'
 
 export const Navbar = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    clearToken();
+    navigate('/login');
+  }
   return (
     <nav>
       <Box bgcolor="Highlight" position="fixed" width="100%">
@@ -13,7 +20,7 @@ export const Navbar = () => {
             <NavLink to='/'>Home</NavLink>
             <NavLink to='/todos'>Todos</NavLink>
 
-            <Button variant="contained" color="error">Logout</Button>
+            <Button variant="contained" color="error" onClick={handleLogout}>Logout</Button>
           </Box>
         </Box>
       </Box>
