@@ -2,6 +2,7 @@
 export const typeDefs = `#graphql
     scalar Date
 
+    # Queries
     type User {
         id: ID!
         name: String!
@@ -22,9 +23,11 @@ export const typeDefs = `#graphql
 
     type Query {
         users: [User]
-        todos(id: ID): [Todo]
+        todos: [Todo]
+        myTodos: [Todo]
     }
 
+    # Mutations
     type Mutation {
         registerUser(Input: registerUserInput!): AuthResponse
         loginUser(Input: loginUserInput!): AuthResponse

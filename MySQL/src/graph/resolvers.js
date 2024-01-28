@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client'
-import { signToken } from './jwt.helper.js';
+import { signToken } from '../helpers/jwt.helper.js';
 
 const Prisma = new PrismaClient();
 
@@ -8,7 +8,8 @@ export const resolvers = {
         async users() {
             return await Prisma.user.findMany();
         },
-        async todos(_, { id }) {
+        async todos(_, { id }, context) {
+            // console.log(context)
             return await Prisma.todo.findMany({
                 where: {
                     ...(id && { userId: Number(id)  }),

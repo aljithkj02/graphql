@@ -2,8 +2,10 @@ import { ApolloServer } from '@apollo/server'
 import { ApolloServer as ApolloServerExpress } from 'apollo-server-express'
 import { startStandaloneServer } from '@apollo/server/standalone'
 import express from 'express'
+import cors  from 'cors'
 import { typeDefs } from './graph/typeDef.js'
 import { resolvers } from './graph/resolvers.js'
+import { authMiddleware } from './middleware/authMiddleware.js'
 
 
 
@@ -24,13 +26,17 @@ const startServer = async () => {
 const startExpressServer = async () => {
     const server = new ApolloServerExpress({
         typeDefs,
-        resolvers
+        resolvers,
+        context: ({ req }) => ({ req })
     })
 
     const app = express();
     await server.start();
 
+    app.use(cors());
+    app.use('/graphql', authMiddleware);
     server.applyMiddleware({ app });
+    
 
     app.get('/', (req, res) => {
         res.json({
