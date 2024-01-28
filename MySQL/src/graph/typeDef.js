@@ -33,11 +33,17 @@ export const typeDefs = `#graphql
         registerUser(Input: registerUserInput!): AuthResponse
         loginUser(Input: loginUserInput!): AuthResponse
         addTodo(Input: addTodoInput!): Todo
+        updateTodo(Input: updateTodoInput): Response
     }
 
     type AuthResponse {
         status: Boolean!
         token: String!
+    }
+
+    type Response {
+        status: Boolean!
+        message: String!
     }
 
     input registerUserInput {
@@ -54,5 +60,11 @@ export const typeDefs = `#graphql
     input addTodoInput {
         task: String!
         userId: ID!
+    }
+
+    input updateTodoInput {
+        id: ID!
+        task: String!
+        status: String!
     }
 `
