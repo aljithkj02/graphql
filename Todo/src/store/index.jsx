@@ -1,17 +1,11 @@
-import { createContext, useContext, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { createContext, useContext } from "react";
 
 const MyContext = createContext();
 
 // eslint-disable-next-line no-undef, react/prop-types
 export const ContextProvider = ({ children }) => {
-    const [user, setUser] = useState(true);
-
-    if(!user) {
-        return <Navigate to='/login' />
-    }
     return (
-        <MyContext.Provider value={{ user }} >
+        <MyContext.Provider value={{ test: true }} >
             { children }
         </MyContext.Provider>
     )

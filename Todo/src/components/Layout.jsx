@@ -5,14 +5,13 @@ import { ContextProvider } from '../store'
 
 export const Layout = () => {
   return (
-    
-    <ContextProvider>
-      <Box>
-          <Navbar />
-          <Box px={10} py={10}>
-              <Outlet />
-          </Box>
-      </Box>
-    </ContextProvider>
+      <ContextProvider>
+        <Box>
+            <Navbar />
+            <Box px={10} py={10}>
+                <Outlet />
+            </Box>
+        </Box>
+      </ContextProvider>
   )
 }

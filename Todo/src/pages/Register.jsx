@@ -1,12 +1,26 @@
 import { Box, Button, Input, Typography } from '@mui/material'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 export const Register = () => {
   const [showPass, setShowPass] = useState(false);
+  const [userInfo, setUserInfo] = useState({
+    name: '',
+    email: '',
+    password: ''
+  })
+  
+  const navigate = useNavigate();
 
   const handleShowPass = () => {
     setShowPass(!showPass);
+  }
+
+  const handleChange = (e) => {
+    setUserInfo({
+      ...userInfo,
+      [e.target.name]: e.target.value
+    })
   }
 
   return (
@@ -17,10 +31,12 @@ export const Register = () => {
               gap={2} boxShadow="0 0 10px rgba(0, 0, 0, 0.3)"
             >
               <Typography variant='h4' textAlign="center">Register</Typography>
-              <Input type='text' placeholder='Name' />
-              <Input type='email' placeholder='Email' />
+              <Input type='text' placeholder='Name' name='name' onChange={handleChange} required/>
+              <Input type='email' placeholder='Email' name="email" onChange={handleChange} required/>
               <Box position="relative">
-                <Input type={showPass ? 'text' : 'password'} placeholder='Password' sx={{ width: "100%"}}/>
+                <Input type={showPass ? 'text' : 'password'} placeholder='Password' sx={{ width: "100%"}}
+                  name='password' onChange={handleChange} required
+                />
                 <Button variant='outlined' onClick={handleShowPass} sx={{ 
                   fontSize: "11px", position: 'absolute', right: 0, bottom: 5
                 }}>{showPass ? 'Hide' : 'Show'}</Button>
