@@ -26,9 +26,9 @@ export const typeDefs = `#graphql
     }
 
     type Mutation {
-        registerUser(Input: registerUserInput!): User
+        registerUser(Input: registerUserInput!): AuthResponse
         loginUser(Input: loginUserInput!): AuthResponse
-        addTodo(Input: addTodoInput!): AuthResponse
+        addTodo(Input: addTodoInput!): Todo
     }
 
     type AuthResponse {

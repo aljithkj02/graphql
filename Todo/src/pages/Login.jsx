@@ -2,7 +2,8 @@ import { Box, Button, Input, Typography } from '@mui/material'
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useMutation } from '@apollo/client'
-import { LOGIN_USER } from '../utils/mutations'
+import { LOGIN_USER } from '../utils/mutations.js'
+import { storeToken } from '../utils/localStorage.js'
 
 export const Login = () => {
   const [showPass, setShowPass] = useState(false);
@@ -26,7 +27,7 @@ export const Login = () => {
         }
       })
       if(data?.loginUser?.status) {
-        localStorage.setItem('token', data.loginUser.token);
+        storeToken(data.loginUser.token);
         navigate('/');
       }
     } catch (error) {
