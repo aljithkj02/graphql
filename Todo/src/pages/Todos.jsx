@@ -3,7 +3,13 @@ import { Box, Typography } from '@mui/material'
 import { GET_TODOS } from '../utils/queries';
 
 export const Todos = () => {
-  const { data } = useQuery(GET_TODOS);
+  const { data, loading } = useQuery(GET_TODOS);
+
+  if(loading) {
+    return <Typography variant="h3" mt={10} textAlign="center">Loading...</Typography>
+  }
+
+  console.log(data);
 
   return (
     <Box>
@@ -15,6 +21,7 @@ export const Todos = () => {
                   sx={{ cursor: 'pointer'}}
                 >
                   <Typography>{todo.task}</Typography>
+                  <Typography>Author: {todo.user.name}</Typography>
                   <Typography color={todo.status === 'PENDING' ? 'red' : 'green'}>{todo.status}</Typography>
                 </Box>
         })}

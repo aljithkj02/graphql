@@ -7,7 +7,11 @@ export const GET_TODOS = gql`
             task
             status
             createdAt
-            userId
+            userId,
+            user {
+                id
+                name
+            }
         }
     }
 `

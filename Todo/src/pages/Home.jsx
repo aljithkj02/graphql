@@ -9,7 +9,7 @@ export const Home = () => {
   if(loading) {
     return <Typography variant="h3" mt={10} textAlign="center">Loading...</Typography>
   }
-  console.log(data);
+  
   return (
     <Box>
       <Typography fontSize="28px" fontWeight={600} textAlign="center">My Todos</Typography>

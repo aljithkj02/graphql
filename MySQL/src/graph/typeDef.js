@@ -19,6 +19,7 @@ export const typeDefs = `#graphql
         createdAt: Date!
         updatedAt: Date!
         userId: ID!
+        user: User!
     }
 
     type Query {

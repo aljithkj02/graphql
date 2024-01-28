@@ -27,6 +27,15 @@ export const resolvers = {
             })
         }
     },
+    Todo: {
+        async user(parent) {
+            return await Prisma.user.findUnique({
+                where: {
+                    id: parent.userId
+                }
+            })
+        } 
+    },
     Mutation: {
         async registerUser(_, { Input }) {
             const { name, email, password } = Input;
