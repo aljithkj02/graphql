@@ -86,14 +86,14 @@ export const resolvers = {
             const { id, task, status } = Input;
             const { id: user } = context.req.user;
             const todo = await Prisma.todo.findUnique({
-                where: { id, userId: user }
+                where: { id: Number(id), userId: user }
             })
 
             if(!todo) {
                 throw new Error('There is no such todo exist!');
             }
             await Prisma.todo.update({
-                where: { id },
+                where: { id: Number(id) },
                 data: {
                     task, status
                 }

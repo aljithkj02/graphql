@@ -17,3 +17,12 @@ export const REGISTER_USER = gql`
         }
     }
 `
+
+export const UPDATE_TODO = gql`
+    mutation updateTodo ($id: ID!, $task: String!, $status: String!) {
+        updateTodo(Input: { id: $id, status: $status, task: $task}) {
+            status
+            message
+        }
+    }
+`
