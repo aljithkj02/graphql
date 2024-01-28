@@ -34,6 +34,7 @@ const startExpressServer = async () => {
     await server.start();
 
     app.use(cors());
+    app.use(express.json())
     app.use('/graphql', authMiddleware);
     server.applyMiddleware({ app });
     

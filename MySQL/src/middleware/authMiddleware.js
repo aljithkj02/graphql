@@ -5,6 +5,11 @@ const prisma = new PrismaClient();
 
 export const authMiddleware = async (req, res, next) => {
     try {
+        const operationName = req?.body?.operationName;
+        if(['loginUser', 'registerUser'].includes(operationName)) {
+            return next();
+        }
+        
         const token = req?.headers?.authorization?.split(' ').pop();
 
         if(!token) {
@@ -15,7 +20,9 @@ export const authMiddleware = async (req, res, next) => {
         }
 
         const data = authorizeToken(token);
-        const user = await prisma.user.findUnique({ id: data?.id });
+        const user = await prisma.user.findUnique({
+            where: { id: data?.id }
+        });
         if(!user) {
             return res.status(404).json({
                 status: false,
