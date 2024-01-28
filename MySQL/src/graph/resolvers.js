@@ -76,11 +76,17 @@ export const resolvers = {
                 token
             };
         },
-        async addTodo(_, { Input }) {
-            const { task, userId } = Input;
-            return await Prisma.todo.create({
-                data: { task, userId: Number(userId) }
+        async addTodo(_, { Input }, context) {
+            const { task } = Input;
+            const { id } = context.req.user;
+            await Prisma.todo.create({
+                data: { task, userId: id }
             })
+
+            return {
+                status: true,
+                message: "Todo created successfully!"
+            }
         },
         async updateTodo(_, { Input }, context) {
             const { id, task, status } = Input;

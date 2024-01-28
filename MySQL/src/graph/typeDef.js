@@ -32,7 +32,7 @@ export const typeDefs = `#graphql
     type Mutation {
         registerUser(Input: registerUserInput!): AuthResponse
         loginUser(Input: loginUserInput!): AuthResponse
-        addTodo(Input: addTodoInput!): Todo
+        addTodo(Input: addTodoInput!): Response
         updateTodo(Input: updateTodoInput): Response
     }
 
@@ -59,7 +59,6 @@ export const typeDefs = `#graphql
 
     input addTodoInput {
         task: String!
-        userId: ID!
     }
 
     input updateTodoInput {

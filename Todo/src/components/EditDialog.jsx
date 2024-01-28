@@ -2,7 +2,7 @@ import { Box, Button, Dialog, DialogActions, DialogContent, DialogContentText, D
 import { useState } from 'react'
 
 // eslint-disable-next-line react/prop-types
-export const EditDialog = ({ handleClose, task, id, status, handleUpdate }) => {
+export const EditDialog = ({ handleClose, task, id, status, handleUpdate, flag}) => {
     const [todo, setTodo] = useState({
         task,
         status,
@@ -30,7 +30,7 @@ export const EditDialog = ({ handleClose, task, id, status, handleUpdate }) => {
                 aria-describedby="alert-dialog-description"
             >
                 <DialogTitle id="alert-dialog-title">
-                    Edit Todo
+                    {flag ? 'Edit' : 'Create'} Todo
                 </DialogTitle>
                 <DialogContent>
                 <DialogContentText id="alert-dialog-description" width="500px"
@@ -41,19 +41,19 @@ export const EditDialog = ({ handleClose, task, id, status, handleUpdate }) => {
                         <Input type='text' name='task' value={todo.task} onChange={handleChange} required/>
                     </Box>
 
-                    <Box display="flex" flexDirection="column">
+                    { flag && <Box display="flex" flexDirection="column">
                         <label>Status</label>
                         <Select value={todo.status} name='status' onChange={handleChange}>
                             <MenuItem value='PENDING' style={{ padding: "15px"}}>Pending</MenuItem>
                             <MenuItem value='DONE' style={{ padding: "15px"}}>Done</MenuItem>
                         </Select>
-                    </Box>
+                    </Box> }
                 </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
                     <Button onClick={handleSubmit} autoFocus variant='contained'>
-                        Update
+                        { flag ? 'Update' : 'Create'}
                     </Button>
                 </DialogActions>
             </Dialog>

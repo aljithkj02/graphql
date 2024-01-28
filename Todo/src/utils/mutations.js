@@ -26,3 +26,12 @@ export const UPDATE_TODO = gql`
         }
     }
 `
+
+export const ADD_TODO = gql`
+    mutation addTodo ($task: String!) {
+        addTodo(Input: { task: $task }) {
+            status
+            message
+        }
+    }
+`

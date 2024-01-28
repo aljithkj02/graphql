@@ -10,7 +10,7 @@ export const Home = () => {
   const [open, setOpen] = useState(false);
   const [todo, setTodo] = useState(null);
   const { data, loading, refetch } = useQuery(GET_MY_TODOS);
-  const [updateTodo] = useMutation(UPDATE_TODO);
+  const [updateTodo, { error }] = useMutation(UPDATE_TODO);
 
   if(loading) {
     return <Typography variant="h3" mt={10} textAlign="center">Loading...</Typography>
@@ -20,7 +20,7 @@ export const Home = () => {
     setOpen(value);
     setTodo(todo ? todo : null);
   }
-
+  
   const handleUpdate = async (todo, id) => {
     try {
       const { data } = await updateTodo({
@@ -59,7 +59,7 @@ export const Home = () => {
                 </Box>
         })}
       </Box>
-      { open && todo && <EditDialog handleClose={() => handleOpen(false)} {...todo} handleUpdate={handleUpdate}/> }
+      { open && todo && <EditDialog handleClose={() => handleOpen(false)} {...todo} handleUpdate={handleUpdate} flag/> }
     </Box>
   )
 }
