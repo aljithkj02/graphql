@@ -4,13 +4,15 @@ import { GET_MY_TODOS } from "../utils/queries"
 import { EditDialog } from "../components/EditDialog";
 import { useState } from "react";
 import { UPDATE_TODO } from "../utils/mutations";
+import { useMyContext } from "../store";
 
 
 export const Home = () => {
   const [open, setOpen] = useState(false);
   const [todo, setTodo] = useState(null);
   const { data, loading, refetch } = useQuery(GET_MY_TODOS);
-  const [updateTodo, { error }] = useMutation(UPDATE_TODO);
+  const [updateTodo] = useMutation(UPDATE_TODO);
+  const { trigger, handleTrigger } = useMyContext();
 
   if(loading) {
     return <Typography variant="h3" mt={10} textAlign="center">Loading...</Typography>
@@ -19,6 +21,11 @@ export const Home = () => {
   const handleOpen = (value, todo) => {
     setOpen(value);
     setTodo(todo ? todo : null);
+  }
+
+  if(trigger) {
+    refetch();
+    handleTrigger(false);
   }
   
   const handleUpdate = async (todo, id) => {
@@ -29,9 +36,9 @@ export const Home = () => {
           id
         }
       })
-      // if(data?.updateTodo?.status) {
-      //   alert(data.updateTodo.message);
-      // }
+      if(data?.updateTodo?.status) {
+        // alert(data.updateTodo.message);
+      }
       refetch();
     } catch (error) {
       console.log(error.message);

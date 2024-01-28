@@ -5,11 +5,13 @@ import { clearToken } from '../utils/localStorage.js'
 import { useState } from "react"
 import { EditDialog } from "./EditDialog.jsx"
 import { ADD_TODO } from '../utils/mutations.js'
+import { useMyContext } from "../store/index.jsx"
 
 export const Navbar = () => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const [addTodo] = useMutation(ADD_TODO);
+  const { handleTrigger } = useMyContext();
 
   const handleLogout = () => {
     clearToken();
@@ -29,6 +31,7 @@ export const Navbar = () => {
       })
       console.log(data.addTodo);
       handleOpen(false);
+      handleTrigger(true);
     } catch (error) {
       console.log(error.message);
       alert(error.message);
