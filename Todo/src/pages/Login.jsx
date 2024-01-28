@@ -25,7 +25,8 @@ export const Login = () => {
           ...userInfo
         }
       })
-      if(data?.loginUser?.id) {
+      if(data?.loginUser?.status) {
+        localStorage.setItem('token', data.loginUser.token);
         navigate('/');
       }
     } catch (error) {
