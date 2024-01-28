@@ -4,9 +4,15 @@ import { Home, Login, Register, Todos } from './pages'
 import { Layout } from './components'
 import { PrivateRouter } from './components/PrivateRouter'
 
+const token = localStorage.getItem('token');
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
-  cache: new InMemoryCache()
+  cache: new InMemoryCache(),
+  ...(token && {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
 })
 
 const router = createBrowserRouter([
