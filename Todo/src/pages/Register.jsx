@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useMutation } from '@apollo/client'
 import { REGISTER_USER } from '../utils/mutations'
 import { storeToken } from '../utils/localStorage.js'
+import { useMyContext } from '../store/index.jsx'
 
 export const Register = () => {
   const [showPass, setShowPass] = useState(false);
@@ -15,6 +16,7 @@ export const Register = () => {
   const [registerUser] = useMutation(REGISTER_USER);
   
   const navigate = useNavigate();
+  const { triggerLogin } = useMyContext();
 
   const handleShowPass = () => {
     setShowPass(!showPass);
@@ -40,6 +42,7 @@ export const Register = () => {
         storeToken(data.registerUser.token);
         navigate('/');
       }
+      triggerLogin();
     } catch (error) {
       console.log(error.message);
       alert(error.message);
