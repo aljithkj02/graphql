@@ -21,8 +21,15 @@ export const authMiddleware = async (req, res, next) => {
 
         const data = authorizeToken(token);
         const user = await prisma.user.findUnique({
-            where: { id: data?.id }
+            where: { id: data?.id },
+            select: {
+                id: true,
+                name: true,
+                email: true,
+                password: false
+            }
         });
+        
         if(!user) {
             return res.status(404).json({
                 status: false,

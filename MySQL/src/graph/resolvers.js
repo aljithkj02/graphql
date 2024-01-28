@@ -8,11 +8,21 @@ export const resolvers = {
         async users() {
             return await Prisma.user.findMany();
         },
-        async todos(_, { id }, context) {
-            // console.log(context)
+        async todos(_, __, context) {
+            const { id } = context.req.user;
             return await Prisma.todo.findMany({
                 where: {
-                    ...(id && { userId: Number(id)  }),
+                    userId: {
+                        not: id
+                    }
+                }
+            })
+        },
+        async myTodos(_, __, context) {
+            const { id } = context.req.user;
+            return await Prisma.todo.findMany({
+                where: {
+                    id
                 }
             })
         }
