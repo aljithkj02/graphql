@@ -22,7 +22,7 @@ export const resolvers = {
             const { id } = context.req.user;
             return await Prisma.todo.findMany({
                 where: {
-                    id
+                    userId: id
                 }
             })
         }

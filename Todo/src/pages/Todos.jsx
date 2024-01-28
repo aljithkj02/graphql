@@ -4,7 +4,6 @@ import { GET_TODOS } from '../utils/queries';
 
 export const Todos = () => {
   const { data } = useQuery(GET_TODOS);
-  console.log({ data })
 
   return (
     <Box>
