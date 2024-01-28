@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client'
+import { signToken } from './jwt.helper.js';
 
 const Prisma = new PrismaClient();
 
@@ -24,11 +25,17 @@ export const resolvers = {
                 throw new Error('User with this email already exist!');
             }
 
-            return await Prisma.user.create({
+            const user = await Prisma.user.create({
                 data: {
                     name, email, password
                 }
             })
+
+            const token = signToken({ id: user.id });
+            return {
+                status: true,
+                token
+            }
         },
         async loginUser(_, { Input }) {
             const { email, password } = Input;
@@ -43,7 +50,11 @@ export const resolvers = {
             if(user.password !== password) {
                 throw new Error('Incorrect password!');
             }
-            return user;
+            const token = signToken({ id: user.id });
+            return {
+                status: true,
+                token
+            };
         },
         async addTodo(_, { Input }) {
             const { task, userId } = Input;
