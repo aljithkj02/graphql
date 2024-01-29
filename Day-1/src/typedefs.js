@@ -1,12 +1,3 @@
-import { PubSub } from "graphql-subscriptions";
-
-export const pubsub = new PubSub();
-
-const publishNewMessage = (message, user, id) => {
-    pubsub.publish('NEW_MESSAGE', {
-        newMessage: { message, user, id }
-    })
-}
 
 export const typeDefs = `#graphql
     type User {

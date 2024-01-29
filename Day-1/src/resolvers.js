@@ -1,5 +1,13 @@
 import { PrismaClient } from '@prisma/client'
-import { pubsub } from './typedefs.js';
+import { PubSub } from "graphql-subscriptions";
+
+export const pubsub = new PubSub();
+
+const publishNewMessage = (message) => {
+    pubsub.publish('NEW_MESSAGE', {
+        newMessage: message
+    })
+}
 
 const Prisma = new PrismaClient();
 
@@ -41,7 +49,8 @@ export const resolvers = {
         },
         async sendMessage(_, { Input }) {
             const { group, sendBy, text } = Input;
-            await Prisma.message.create({ data: { group, sendBy, text }});
+            const message = await Prisma.message.create({ data: { group, sendBy, text }});
+            publishNewMessage(message);
             return { 
                 status: true,
                 message: 'Successfully sent!'
