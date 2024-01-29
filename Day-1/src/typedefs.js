@@ -19,5 +19,26 @@ export const typeDefs = `#graphql
         users: [User]
         messages: [Message]
     }
+
+    type Mutation {
+        register(Input: RegisterUserInput) : Response
+        login(Input: LoginUserInput) : Response
+    }
+
+    type Response {
+        status: Boolean!
+        message: String!
+    }
+
+    input RegisterUserInput {
+        name: String!
+        email: String!
+        password: String!
+    }
+
+    input LoginUserInput {
+        email: String!
+        password: String!
+    }
 `
   
