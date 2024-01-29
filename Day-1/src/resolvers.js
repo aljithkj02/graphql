@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client'
+import { pubsub } from './typedefs.js';
 
 const Prisma = new PrismaClient();
 
@@ -37,6 +38,19 @@ export const resolvers = {
                 status: true,
                 message: "User login successfully!"
             }
+        },
+        async sendMessage(_, { Input }) {
+            const { group, sendBy, text } = Input;
+            await Prisma.message.create({ data: { group, sendBy, text }});
+            return { 
+                status: true,
+                message: 'Successfully sent!'
+            }
+        }
+    },
+    Subscription: {
+        newMessage: {
+            subscribe: () => pubsub.asyncIterator(['NEW_MESSAGE'])
         }
     }
 }

@@ -1,3 +1,12 @@
+import { PubSub } from "graphql-subscriptions";
+
+export const pubsub = new PubSub();
+
+const publishNewMessage = (message, user, id) => {
+    pubsub.publish('NEW_MESSAGE', {
+        newMessage: { message, user, id }
+    })
+}
 
 export const typeDefs = `#graphql
     type User {
@@ -21,8 +30,13 @@ export const typeDefs = `#graphql
     }
 
     type Mutation {
-        register(Input: RegisterUserInput) : Response
-        login(Input: LoginUserInput) : Response
+        register(Input: RegisterUserInput!) : Response
+        login(Input: LoginUserInput!) : Response
+        sendMessage(Input: SendMessageInput!): Response
+    }
+
+    type Subscription {
+        newMessage: Message!
     }
 
     type Response {
@@ -39,6 +53,12 @@ export const typeDefs = `#graphql
     input LoginUserInput {
         email: String!
         password: String!
+    }
+
+    input SendMessageInput {
+        group: Int!
+        text: String!
+        sendBy: Int!
     }
 `
   
